@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ApexCode - Next-Gen Interface Architecture & Web Development. Crafting ultra-performant web applications with modern design logic.">
+    <meta name="theme-color" content="#0b0f19">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ApexCode | Next-Gen Interface Architecture & Web Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="apex-core-body">
+    <div class="ambient-glow-layer" id="ambient-glow">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <div class="bg-canvas-wrapper" id="bg-canvas-wrapper">
+        <canvas id="network-canvas"></canvas>
+    </div>
+
+    <div class="bg-blur-overlay" id="bg-blur-overlay" aria-hidden="true"></div>
+
+    <div id="apex-custom-cursor" class="custom-cursor-node">
+        <div class="cursor-svg-container">
+            <svg class="soft-shape shape-square active" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="15" y="15" width="70" height="70" rx="18" fill="currentColor" />
+            </svg>
+            <svg class="soft-shape shape-triangle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 15 L85 80 L15 80 Z" stroke="currentColor" stroke-width="12" stroke-linejoin="round" fill="currentColor" />
+            </svg>
+            <svg class="soft-shape shape-circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="38" fill="currentColor" />
+            </svg>
+            <svg class="soft-shape shape-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L61 38 L90 38 L66 56 L75 85 L50 68 L25 85 L34 56 L10 38 L39 38 Z" stroke="currentColor" stroke-width="8" stroke-linejoin="round" fill="currentColor" />
+            </svg>
+            <svg class="soft-shape shape-pentagon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 15 L90 40 L75 85 L25 85 L10 40 Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round" fill="currentColor" />
+            </svg>
+        </div>
+    </div>
+
+    <div id="mobile-feedback-container"></div>
+
+    <header class="global-header backdrop-blur-high">
+        <div class="nav-container">
+            <div class="logo-area">
+                <img src="/assets/logos/apexlogo.png" alt="ApexCode Official Logo" class="nav-profile-img" onerror="this.src='https://via.placeholder.com/36x36/8b5cf6/ffffff?text=AC'">
+                <div class="logo-text">
+                    <span class="logo-apex glow-apex">Apex</span><span class="logo-code glow-code">Code</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="multi-theme-selector" id="theme-selector-container">
+                    <div class="theme-active-pill"></div>
+                    <button class="theme-btn-node active" data-theme="dark" title="Nebula (Dark)" aria-label="Switch to Dark Theme">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button class="theme-btn-node" data-theme="light" title="Slate (Light)" aria-label="Switch to Light Theme">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    </button>
+                    <button class="theme-btn-node" data-theme="oled" title="Emerald (OLED)" aria-label="Switch to OLED Theme">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="12 2 2 22 22 22"></polygon></svg>
+                    </button>
+                </div>
+
+                <button class="global-burger-toggle" id="burger-menu-btn" aria-label="Open Control Panel">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="control-drawer-overlay" id="control-drawer">
+        <div class="drawer-content-window">
+            <div class="drawer-header">
+                <h3>System Panel</h3>
+                <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Close Panel">&times;</button>
+            </div>
+
+            <nav class="drawer-navigation-links">
+                <a href="#hero" class="drawer-link">01 // Architecture</a>
+                <a href="#about" class="drawer-link">02 // Analytics</a>
+                <a href="#experience" class="drawer-link">03 // Timeline</a>
+                <a href="#portfolio" class="drawer-link">04 // Demo Systems</a>
+            </nav>
+
+            <div class="drawer-system-toggles">
+                <div class="toggle-control-item">
+                    <div class="toggle-meta">
+                        <h4>Visual Feedback</h4>
+                        <p>Enable interactive cursor and dynamic touch shapes.</p>
+                    </div>
+                    <label class="switch-ui-node">
+                        <input type="checkbox" id="toggle-visual-feedback" checked>
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-control-item">
+                    <div class="toggle-meta">
+                        <h4>Optimization Mode</h4>
+                        <p>Disable blurs, canvas, and heavy effects for older devices.</p>
+                    </div>
+                    <label class="switch-ui-node">
+                        <input type="checkbox" id="toggle-optimization-mode">
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section id="hero" class="hero-section scroll-reveal">
+            <div class="section-container">
+                <div class="hero-badge-node">UI PERFORMANCE ARCHITECT & DEVELOPER</div>
+                <h1 class="hero-title">
+                    Crafting High-End <br>
+                    <span class="gradient-text tracking-glow soft-glow-text">Digital Realities</span>
+                </h1>
+                <p class="hero-subtitle">Engineering ultra-performant web applications, bridging modern design logic with low-level browser execution efficiency for fluid user experiences.</p>
+                <div class="hero-action-cluster">
+                    <a href="#portfolio" class="btn btn-primary-action">Access Sandbox</a>
+                    <a href="#about" class="btn btn-secondary-action">View Metrics</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section scroll-reveal">
+            <div class="section-container">
+                <div class="grid-layout-split">
+                    <div class="identity-text-column">
+                        <div class="section-meta-tag">01 // CAPABILITY METRICS</div>
+                        <h2 class="section-primary-heading">Pushing Performance Beyond Limits</h2>
+                        <p class="paragraph-long">I specialize in strictly optimized architectural patterns, writing standard DOM implementations that completely minimize layout shifts and heavy repaints.</p>
+                        <p class="paragraph-long">From dynamic data management to seamless transition states, every line is written to guarantee minimum latency and maximum aesthetic fidelity.</p>
+                    </div>
+
+                    <div class="performance-metric-matrix-box">
+                        <div class="metric-box-header">
+                            <span class="terminal-dot-node red"></span>
+                            <span class="terminal-dot-node yellow"></span>
+                            <span class="terminal-dot-node green"></span>
+                            <span class="box-title-tag">AC_METRICS // STATUS: ACTIVE</span>
+                        </div>
+                        <div class="metric-box-content">
+                            <div class="numeric-stat-row">
+                                <div class="stat-meta">
+                                    <span class="stat-title">Completed Projects</span>
+                                    <span class="stat-desc">Production-grade applications deployed</span>
+                                </div>
+                                <div class="stat-value-numeric soft-glow-text">80+</div>
+                            </div>
+
+                            <div class="star-rating-item-row">
+                                <div class="rating-label-block">
+                                    <span class="rating-title">Optimization Level</span>
+                                    <span class="rating-fraction">4.8 / 5.0</span>
+                                </div>
+                                <div class="star-display-track">
+                                    <div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node partial" style="--fill-width: 80%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="star-rating-item-row">
+                                <div class="rating-label-block">
+                                    <span class="rating-title">Code Quality</span>
+                                    <span class="rating-fraction">4.9 / 5.0</span>
+                                </div>
+                                <div class="star-display-track">
+                                    <div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node partial" style="--fill-width: 90%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="star-rating-item-row">
+                                <div class="rating-label-block">
+                                    <span class="rating-title">Project Velocity</span>
+                                    <span class="rating-fraction">4.2 / 5.0</span>
+                                </div>
+                                <div class="star-display-track">
+                                    <div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node partial" style="--fill-width: 20%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="star-rating-item-row">
+                                <div class="rating-label-block">
+                                    <span class="rating-title">User Satisfaction</span>
+                                    <span class="rating-fraction">~4.8 / 5.0</span>
+                                </div>
+                                <div class="star-display-track">
+                                    <div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node partial" style="--fill-width: 80%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="rating-summary-footer-node">
+                                <span class="summary-label">OVERALL ARCHITECT RATING</span>
+                                <div class="summary-right-group">
+                                    <span class="summary-score-value soft-glow-text">4.7 / 5.0</span>
+                                    <div class="star-display-track mini">
+                                        <div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node filled"></div><div class="star-node partial" style="--fill-width: 70%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="experience-section scroll-reveal">
+            <div class="section-container">
+                <div class="section-meta-tag">02 // CHRONOLOGY</div>
+                <h2 class="section-primary-heading">Operational Timeline</h2>
+                <div class="timeline-container-tree">
+
+                    <div class="timeline-node-item">
+                        <div class="timeline-connector-dot"></div>
+                        <div class="timeline-date-stamp">2025 - 2026</div>
+                        <div class="timeline-body-content">
+                            <h3>Lead Frontend Architect</h3>
+                            <h4>Next-Gen Web UI Engineering</h4>
+                            <p>Architecting fluid, high-frequency interfaces and sophisticated AI persona systems. Leading complex component lifecycles using React, Tailwind, and cutting-edge Vanilla JS standards.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-node-item">
+                        <div class="timeline-connector-dot"></div>
+                        <div class="timeline-date-stamp">2024 - 2025</div>
+                        <div class="timeline-body-content">
+                            <h3>Core Interface Specialist</h3>
+                            <h4>System Optimization Labs</h4>
+                            <p>Overhauled legacy DOM interactions, dropping rendering latency dramatically. Designed internal systems for hardware-software synergy using low-level browser metrics.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-node-item">
+                        <div class="timeline-connector-dot"></div>
+                        <div class="timeline-date-stamp">2023 - 2024</div>
+                        <div class="timeline-body-content">
+                            <h3>Foundational Web Developer</h3>
+                            <h4>HTML, CSS & JavaScript Core Engineering</h4>
+                            <p>Built a robust portfolio of static and dynamic websites using pure HTML5 semantics, advanced CSS3 layouts (Flexbox, Grid, custom animations), and vanilla JavaScript DOM scripting. Developed responsive landing pages, interactive forms, and lightweight single-page applications without framework dependencies, mastering the fundamentals of cross-browser compatibility, accessibility standards, and performance optimization at the bare-metal level of the web platform.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio-section scroll-reveal">
+            <div class="section-container">
+                <div class="section-meta-tag">03 // PROTOTYPES & ENVIRONMENTS</div>
+                <h2 class="section-primary-heading">Official Live Modules</h2>
+                <div class="portfolio-matrix-grid three-col-grid">
+
+                    <div class="showcase-card interaction-target" data-target-modal="demo-aikoai" data-iframe-src="./demo1/index.html">
+                        <div class="card-image-placeholder aikoai-bg">
+                            <span class="matrix-code-stamp">DIR: /demo1</span>
+                        </div>
+                        <div class="card-meta-details">
+                            <h3>AikoAI Official Portal</h3>
+                            <p>The definitive web interface for AikoAI, an advanced AI persona project featuring interactive dialogue and dynamic promotional media.</p>
+                            <span class="action-trigger-label soft-glow-text">Access App &rarr;</span>
+                        </div>
+                    </div>
+
+                    <div class="showcase-card interaction-target" data-target-modal="demo-ecommerce" data-iframe-src="./demo2/index.html">
+                        <div class="card-image-placeholder ecommerce-bg">
+                            <span class="matrix-code-stamp">DIR: /demo2</span>
+                        </div>
+                        <div class="card-meta-details">
+                            <h3>Modern Commerce Engine</h3>
+                            <p>A strictly structured, high-conversion e-commerce layout template engineered for instant product loading and rapid checkout flows.</p>
+                            <span class="action-trigger-label soft-glow-text">Access App &rarr;</span>
+                        </div>
+                    </div>
+
+                    <div class="showcase-card interaction-target" data-target-modal="demo-chat" data-iframe-src="./demo3/index.html">
+                        <div class="card-image-placeholder chat-bg">
+                            <span class="matrix-code-stamp">DIR: /demo3</span>
+                        </div>
+                        <div class="card-meta-details">
+                            <h3>Next-Gen Neural UI</h3>
+                            <p>A seamless, highly responsive chatbot interface template utilizing fluid animations and intelligent component scaling.</p>
+                            <span class="action-trigger-label soft-glow-text">Access App &rarr;</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2026 ApexCode. Engineered with dedication. All rights reserved.</p>
+            <div class="system-status-node">SYSTEM ARCHITECTURE: <span class="status-active">V2.6.1 STABLE</span></div>
+        </div>
+    </footer>
+
+    <div class="modal-wrapper-container" id="global-sandbox-modal">
+        <div class="modal-window-frame">
+            <div class="modal-window-header">
+                <div class="window-control-dots">
+                    <span class="dot-node"></span><span class="dot-node"></span><span class="dot-node"></span>
+                </div>
+                <div class="modal-runtime-title" id="modal-runtime-title-tag">app-environment.html</div>
+                <button class="modal-dismiss-trigger" id="modal-close-btn" aria-label="Close Modal">&times;</button>
+            </div>
+            <div class="modal-iframe-body-wrapper">
+                <iframe id="sandbox-iframe-viewport" src="about:blank" title="Isolated App Environment" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
